@@ -1,0 +1,807 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>傾聴と共感のトレーニング</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: 余白(間)を広くとった単一カラム。上部に固定タブ、本文は要点と稽古のカードを縦に積む。 */
+:root{
+  --bg:#F2F4F3; --surface:#FFFFFF; --fg:#1B2528; --muted:#5B6A6E; --line:#D5DCDB;
+  --accent:#2D6A6F; --accent-soft:#E0EDEC; --accent-fg:#FFFFFF;
+  --good:#2F7D5B; --good-soft:#E1F1E8; --warn:#A56A12; --warn-soft:#F6EBD4; --bad:#B04A3A; --bad-soft:#F7E3DF;
+  --font-display:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --font-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11181A; --surface:#182224; --fg:#E6EDEC; --muted:#96A6A8; --line:#2A383A;
+    --accent:#6BB8BC; --accent-soft:#1E3436; --accent-fg:#0D1718;
+    --good:#6CC49A; --good-soft:#1B3328; --warn:#E0B05A; --warn-soft:#3A2E16; --bad:#E58C7B; --bad-soft:#3B221E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11181A; --surface:#182224; --fg:#E6EDEC; --muted:#96A6A8; --line:#2A383A;
+  --accent:#6BB8BC; --accent-soft:#1E3436; --accent-fg:#0D1718;
+  --good:#6CC49A; --good-soft:#1B3328; --warn:#E0B05A; --warn-soft:#3A2E16; --bad:#E58C7B; --bad-soft:#3B221E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--fg); font-family:var(--font-body); font-size:15.5px; line-height:1.85;
+  padding-block:20px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:44rem;margin:0 auto}
+.eyebrow{font-size:.75rem;letter-spacing:.14em;color:var(--muted);margin:0}
+h1{font-family:var(--font-display);font-weight:700;font-size:1.9rem;line-height:1.35;margin:4px 0 6px;text-wrap:balance}
+.sub{color:var(--muted);margin:0;font-size:.9rem}
+nav.tabs{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:9; background:var(--bg);
+  display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;
+  padding-block:10px; margin-block:12px 18px; border-bottom:1px solid var(--line);
+}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:none; font:inherit; font-size:.88rem; line-height:1; padding:10px 14px; position:relative;
+  border:1px solid var(--line); background:var(--surface); color:var(--fg); border-radius:8px; cursor:pointer;
+}
+.tab[aria-current="page"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.tab.done::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--good);position:absolute;top:4px;right:4px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h2{font-family:var(--font-display);font-weight:700;font-size:1.5rem;line-height:1.4;margin:2px 0 6px;text-wrap:balance}
+h3{font-size:1rem;margin:0}
+p{margin:0}
+.lede{color:var(--muted)}
+.stack{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:12px}
+.points{margin:10px 0 0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.points li::marker{color:var(--accent)}
+ol.how{margin:10px 0 0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.small{font-size:.82rem;color:var(--muted)}
+.btn{
+  font:inherit; font-weight:500; padding:10px 18px; border-radius:8px; cursor:pointer;
+  background:var(--accent); color:var(--accent-fg); border:1px solid var(--accent);
+}
+.btn.ghost{background:transparent;color:var(--accent)}
+.link{font:inherit;font-size:.82rem;background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;padding:4px 0}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.between{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}
+.chip{font-size:.75rem;padding:2px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.done{border-color:var(--good);color:var(--good);background:var(--good-soft)}
+.tag{font-size:.75rem;padding:2px 10px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-weight:500}
+.bar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.qhead{display:flex;justify-content:space-between;gap:10px;font-size:.8rem;color:var(--muted)}
+.say{display:flex;flex-direction:column;gap:6px}
+.who{font-size:.72rem;letter-spacing:.14em;color:var(--muted)}
+.ctx{font-size:.88rem;color:var(--muted)}
+.say.patient .line{font-family:var(--font-display);font-size:1.25rem;line-height:1.7;font-weight:500;text-wrap:balance}
+.say.therapist .line{background:var(--accent-soft);padding:12px 14px;border-radius:8px;font-size:1.05rem;width:fit-content;max-width:100%}
+.q{font-weight:500}
+.opts{display:flex;flex-direction:column;gap:8px;transition:opacity .3s}
+.opts.chips{flex-direction:row;flex-wrap:wrap}
+.opts.locked{opacity:.3;pointer-events:none}
+.opt{
+  font:inherit; text-align:left; color:var(--fg); background:var(--surface);
+  border:1px solid var(--line); border-radius:8px; padding:12px 14px; cursor:pointer; min-width:0;
+}
+.opts.chips .opt{text-align:center;padding:10px 16px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default;color:var(--fg)}
+.opt.is-ok{border-color:var(--good);background:var(--good-soft)}
+.opt.is-miss{border-color:var(--bad);background:var(--bad-soft)}
+.opt.is-chosen{border-width:2px;padding:11px 13px}
+.opts.chips .opt.is-chosen{padding:9px 15px}
+.note{font-size:.84rem;color:var(--muted);margin-top:6px;line-height:1.7}
+.note b{color:var(--fg)}
+.feedback{background:var(--bg);border-radius:8px;padding:12px 14px;font-size:.92rem}
+.feedback b{display:block;margin-bottom:2px}
+.pause{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.pause i{display:block;height:100%;width:0;background:var(--accent);transition-property:width;transition-timing-function:linear}
+.meter{display:inline-flex;gap:3px;vertical-align:middle}
+.meter i{width:12px;height:6px;border-radius:2px;background:var(--line)}
+.meter i.on{background:var(--accent)}
+.meter.lv1 i.on,.meter.lv2 i.on{background:var(--bad)}
+.meter.lv3 i.on{background:var(--warn)}
+.meter.lv4 i.on,.meter.lv5 i.on{background:var(--good)}
+.reply{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px dashed var(--line)}
+details.more{font-size:.88rem}
+details.more summary{cursor:pointer;color:var(--muted)}
+details.more ul{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:12px}
+details.more li{padding-top:10px;border-top:1px solid var(--line)}
+.score{font-family:var(--font-display);font-size:2.4rem;line-height:1.2;font-variant-numeric:tabular-nums}
+.timeline{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.timeline li{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;font-size:.9rem}
+.timeline .tl-t{flex:1 1 14rem;min-width:0}
+.ill{display:block;width:100%}
+.ill svg{display:block;width:100%;height:auto}
+.ill .fl{stroke:var(--line);stroke-width:2;stroke-linecap:round}
+.ill .ln{fill:none;stroke:var(--fg);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ill .ac,.ill .pt{stroke-width:2.2;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ill .ac{fill:var(--accent-soft);stroke:var(--accent)}
+.ill .pt{fill:var(--warn-soft);stroke:var(--warn)}
+.ill .dash{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:4 5;stroke-linecap:round}
+.ill .arc{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ill .dot{fill:var(--accent)}
+.ill .lf{fill:var(--good-soft);stroke:var(--good);stroke-width:2;stroke-linejoin:round}
+.ill .bub{fill:var(--surface);stroke:var(--accent);stroke-width:2}
+.ill .glow{fill:var(--warn-soft);stroke:none}
+.ill .lamp{fill:var(--warn);stroke:var(--warn);stroke-width:2}
+.ill .tx{fill:var(--muted);font-family:var(--font-body);font-size:12.5px}
+.ill .tb{fill:var(--fg);font-family:var(--font-display);font-size:16px;font-weight:700}
+.ill .tq{fill:var(--accent);font-family:var(--font-display);font-size:28px;font-weight:700}
+.hero-ill{max-width:26rem;margin:0 auto 12px}
+.room-ill{max-width:26rem;margin:0 auto 12px}
+.ill.wide{max-width:30rem;margin:12px auto 0}
+.mod-head{display:flex;gap:16px;align-items:center;justify-content:space-between}
+.mod-head>div:first-child{min-width:0}
+.ill.icon{width:104px;flex:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">傾聴と共感メモ より</p>
+    <h1>傾聴と共感のトレーニング</h1>
+    <p class="sub">短い場面に応えながら、聴く・共感する・不思議がる・患者に仕事をしてもらう、を確かめる。</p>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="章の切り替え"></nav>
+  <main id="main"></main>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- helpers ---------- */
+function h(tag, props){
+  var e=document.createElement(tag);
+  if(props){
+    Object.keys(props).forEach(function(k){
+      var v=props[k];
+      if(v===false||v==null) return;
+      if(k==='class') e.className=v;
+      else if(k==='text') e.textContent=v;
+      else if(k==='style') e.style.cssText=v;
+      else if(k.slice(0,2)==='on') e.addEventListener(k.slice(2),v);
+      else e.setAttribute(k, v===true?'':v);
+    });
+  }
+  for(var i=2;i<arguments.length;i++){
+    var kid=arguments[i];
+    if(kid==null||kid===false) continue;
+    if(Array.isArray(kid)){ kid.forEach(function(x){ if(x!=null&&x!==false) e.append(x.nodeType?x:document.createTextNode(x)); }); }
+    else e.append(kid.nodeType?kid:document.createTextNode(kid));
+  }
+  return e;
+}
+function shuffle(a){
+  var r=a.slice();
+  for(var i=r.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=r[i]; r[i]=r[j]; r[j]=t; }
+  return r;
+}
+function meter(lv){
+  var m=h('span',{class:'meter lv'+lv,'aria-label':'連想の広がり '+lv+'/5',role:'img'});
+  for(var i=1;i<=5;i++) m.append(h('i',{class:i<=lv?'on':''}));
+  return m;
+}
+
+/* ---------- progress (per-viewer convenience only) ---------- */
+var KEY='keiko-listening-empathy-v1';
+var progress={};
+try{ progress=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ progress={}; }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(progress)); }catch(e){} }
+
+/* ---------- content ---------- */
+var chip=function(labels,ans){ return labels.map(function(l){ return {t:l,ok:l===ans}; }); };
+
+var MODULES=[
+{
+  id:'listen', nav:'傾聴', name:'傾聴', eyebrow:'まず、聴く',
+  lead:'批判も評価も分類も解釈もせず、わかろうとして聴く。',
+  points:[
+    '治療者の第一歩は、患者の伝えてくることに耳を傾け、わかろうと努めること。批判・評価・分類・解釈をせず、沈黙のうちに聴き入る。',
+    '日常の人間関係では、私たちは互いに批判や評価をしあっていて、傾聴はむしろ少ない。だから技術として意識的に訓練する必要がある。',
+    '自分の意見や価値観を押しつけず、個人的な影響を最小にする。自己主張を断念するストイシズムが要る。',
+    '言いなりになることではない。患者が本来の人格として、自由に行為し責任を負う存在になるのを妨げない、ということ。',
+    '機械的になるのでもない。役割に徹するほど、人間性がにじみ出る。個性的にふるまおうとはしない。'
+  ],
+  sets:[
+    { id:'listen-1', title:'聴く応答を選ぶ', mode:'choices', q:'この発言に、どう応えますか。',
+      intro:'患者の言葉のあと、数秒の間があります。まず聴いてから選んでください。',
+      items:[
+        {who:'patient',pause:4,lead:'学校に行こうとすると、お腹が痛くなるんです。',options:[
+          {t:'お腹が痛くなるんですね。そのときのこと、もう少し聞かせてください。',ok:true,tag:'傾聴',note:'判断を足さずに受け取り、話の続きを促している。'},
+          {t:'それは気のせいじゃないかな。行けば治ることが多いよ。',ok:false,tag:'批判・評価',note:'患者の体験を打ち消している。話はそこで止まりやすい。'},
+          {t:'ストレスによる心身症の一種だね。',ok:false,tag:'分類',note:'名前をつけて終わらせている。診断的な理解は必要でも、最初の一歩ではない。'},
+          {t:'休んでばかりいると、ますます行けなくなるよ。',ok:false,tag:'助言・価値観の押しつけ',note:'治療者の価値観で先に方向を決めている。'}
+        ]},
+        {who:'patient',pause:4,lead:'お母さんは、私のことを全然わかってくれない。',options:[
+          {t:'わかってもらえていない、と感じているんですね。',ok:true,tag:'傾聴',note:'患者の言葉をそのまま受け取り、母親への評価も治療者の見方も足していない。'},
+          {t:'お母さんも心配しているから、そう言うんだと思うよ。',ok:false,tag:'評価・説得',note:'母親の側に立って、患者の感じ方を修正しようとしている。'},
+          {t:'それは思春期によくある親子の葛藤だね。',ok:false,tag:'分類',note:'一般論にして、この患者の体験への関心が伝わらない。'},
+          {t:'お母さんに甘えたい気持ちの裏返しじゃないかな。',ok:false,tag:'解釈',note:'まだ聴いていない段階で、断定的な解釈を出している。'}
+        ]},
+        {who:'patient',pause:4,lead:'ゲームばっかりしてて、自分でもやばいと思う。',options:[
+          {t:'やばい、と思っているんですね。',ok:true,tag:'傾聴',note:'患者が自分で口にした評価を、そのまま受け取っている。'},
+          {t:'やばいと思うなら、時間を決めて減らそう。',ok:false,tag:'助言',note:'患者がまだ語っていないのに、解決を治療者が引き取っている。'},
+          {t:'ゲームへの依存傾向があるね。',ok:false,tag:'分類',note:'ラベルを貼ることで、話の続きが出にくくなる。'},
+          {t:'ゲームに逃げているだけじゃない？',ok:false,tag:'批判・解釈',note:'批判を含んだ解釈で、患者は身構える。'}
+        ]},
+        {who:'patient',pause:4,lead:'別に、特に話すことはないです。',options:[
+          {t:'そうですか。話したくなったことが出てきたら、聞かせてください。',ok:true,tag:'傾聴',note:'無理に引き出さず、話せる余地を残している。'},
+          {t:'話すことがないはずないでしょう。最近どうなの？',ok:false,tag:'詰問',note:'迫られると、患者は一層閉じやすい。'},
+          {t:'それは反抗的な態度だね。',ok:false,tag:'批判・評価',note:'態度への評価で、患者の事情は聴かれないままになる。'},
+          {t:'何かあるでしょう。学校のこととか、友達のこととか。',ok:false,tag:'誘導',note:'話題を治療者が先に決めている。'}
+        ]}
+      ]
+    },
+    { id:'listen-2', title:'どの型の応答か', mode:'chips', q:'この応答は、どの型にあたりますか。',
+      labels:['批判・評価','分類','解釈','傾聴'],
+      intro:'自分の応答が、批判・評価・分類・解釈のどれかになっていないかを見分ける練習です。',
+      items:[
+        {who:'therapist',ctx:'学校に行きたくないんです。',lead:'それは甘えだよ。',ans:'批判・評価',explain:'患者の気持ちを価値判断で切っている。'},
+        {who:'therapist',ctx:'朝、起きられなくて。',lead:'典型的な適応障害のパターンだね。',ans:'分類',explain:'既存の枠に当てはめて、話を閉じている。'},
+        {who:'therapist',ctx:'お母さんに言われると、イライラする。',lead:'本当はお母さんに甘えたいんだね。',ans:'解釈',explain:'治療者の仮説を、断定の形で伝えている。'},
+        {who:'therapist',ctx:'最近、友達とあまり話さなくなって。',lead:'（うなずいて）それで、どうなりましたか。',ans:'傾聴',explain:'判断を足さず、続きを促している。'},
+        {who:'therapist',ctx:'人が多いところは苦手で。',lead:'内向的なタイプなんだね。',ans:'分類',explain:'タイプに分けると、その人固有の体験から離れやすい。'},
+        {who:'therapist',ctx:'ときどき、急に涙が出るんです。',lead:'つらい経験が、今の様子に影響しているんだと思うよ。',ans:'解釈',explain:'原因を治療者が説明している。仮説は質問の形で出すほうがよい。'},
+        {who:'therapist',ctx:'友達の誘いは、全部断っています。',lead:'それは立派な考え方だね。',ans:'批判・評価',explain:'肯定的でも、語られた内容への価値判断。※できたことを認める評価は、共感の章で扱う別のものです。'}
+      ]
+    }
+  ]
+},
+{
+  id:'empathy', nav:'共感', name:'共感', eyebrow:'同情ではなく、共感',
+  lead:'患者自身が口にしても自然な言葉で、気持ちを受け取る。',
+  points:[
+    'わかったところは、うなずきや相づちで伝える。',
+    '患者が辛い感情を言葉にしにくいとき、治療者が代わりに言葉にして共感を示すことがある。',
+    '見分けの基準は、患者自身がそう言っても当然かどうか。「悲しいですね」「たいへんですね」は共感。「かわいそうに」「力になってあげたい」は、こちらから手を差し伸べる言い方で、同情。',
+    '患者ができたこと、達成したことを見つけて評価し、本人の満足や喜びに共感する。その価値は、解釈が与える洞察に劣らない。',
+    'ただし、まだできていないことの安請け合いではない。'
+  ],
+  sets:[
+    { id:'empathy-1', title:'同情か、共感か', mode:'chips', q:'この言葉は、同情ですか、共感ですか。',
+      labels:['同情','共感'],
+      intro:'コツは、患者自身がその言葉を自分に向けて言っても自然か、を考えること。',
+      items:[
+        {who:'therapist',lead:'悲しいですね。',ans:'共感',explain:'患者が自分で「悲しい」と言っても自然。感情を代わりに言葉にしている。'},
+        {who:'therapist',lead:'かわいそうに。',ans:'同情',explain:'患者が自分に言う言葉ではない。上から手を差し伸べる形になる。'},
+        {who:'therapist',lead:'力になってあげたい。',ans:'同情',explain:'治療者の側の願いで、手を差し伸べる言い方。'},
+        {who:'therapist',lead:'たいへんですね。',ans:'共感',explain:'患者自身が言っても当然な言い方。'},
+        {who:'therapist',lead:'つらかったですね。',ans:'共感',explain:'患者の側に立った言葉。患者が自分で言っても不自然ではない。'},
+        {who:'therapist',lead:'私が何とかしてあげるから、大丈夫。',ans:'同情',explain:'手を差し伸べる言い方であり、まだできていないことの安請け合いでもある。'},
+        {who:'therapist',lead:'悔しかったんですね。',ans:'共感',explain:'患者自身が「悔しかった」と言っても自然。'},
+        {who:'therapist',lead:'そんなに苦しんでいたなんて、気の毒で。',ans:'同情',explain:'治療者の感情が前に出ている。患者の言葉というより、外から見た憐れみ。'},
+        {who:'therapist',lead:'心細いですよね。',ans:'共感',explain:'患者の心細さを、患者の側から言葉にしている。'},
+        {who:'therapist',lead:'何でも相談してね。味方だからね。',ans:'同情',explain:'親切だが、こちらから手を差し伸べる言い方。患者が自分で言う言葉ではない。'}
+      ]
+    },
+    { id:'empathy-2', title:'場面で選ぶ', mode:'choices', q:'どう応えますか。',
+      intro:'辛い感情を言葉にする場面と、達成を認める場面です。',
+      items:[
+        {who:'patient',lead:'（うつむいて）テスト、全然できなかった…。',options:[
+          {t:'悔しい思いをしたんですね。',ok:true,tag:'共感',note:'言葉にしにくい気持ちを、代わりに言葉にしている。'},
+          {t:'かわいそうに。次はきっとできるよ。',ok:false,tag:'同情・安請け合い',note:'手を差し伸べる言い方で、結果の保証もしている。'},
+          {t:'一回の結果で落ち込みすぎだよ。',ok:false,tag:'評価',note:'気持ちの大きさを治療者が判定している。'},
+          {t:'勉強の仕方を見直そうか。',ok:false,tag:'助言',note:'気持ちを受け取る前に、解決へ進んでいる。'}
+        ]},
+        {who:'patient',lead:'今週は、3日続けて学校に行けました。',options:[
+          {t:'3日続けて行けたんですね。それができて、よかったですね。',ok:true,tag:'達成の評価',note:'できたことを認め、本人の喜びに共感している。'},
+          {t:'その調子なら、来週は毎日行けるね。',ok:false,tag:'安請け合い',note:'まだできていないことを保証している。'},
+          {t:'でも、あと2日は行けなかったんだね。',ok:false,tag:'達成の割り引き',note:'できたことの価値を下げている。'},
+          {t:'それくらい普通だよ。',ok:false,tag:'評価の否定',note:'本人にとっての大きさを認めていない。'}
+        ]},
+        {who:'patient',lead:'本当は行きたいけど、教室に入ると息が詰まるんです。',options:[
+          {t:'行きたい気持ちがあるのに、息が詰まるほどつらいんですね。',ok:true,tag:'共感',note:'両方の気持ちを、患者の言葉で受け取っている。'},
+          {t:'大丈夫、すぐに慣れるよ。',ok:false,tag:'安請け合い',note:'根拠のない保証で、つらさが置き去りになる。'},
+          {t:'かわいそうに、頑張っているのにね。',ok:false,tag:'同情',note:'手を差し伸べる言い方になっている。'},
+          {t:'息が詰まるのは、過呼吸かもしれないね。',ok:false,tag:'分類',note:'医学的な説明が先に出て、本人の体験から離れる。'}
+        ]}
+      ]
+    }
+  ]
+},
+{
+  id:'wonder', nav:'不思議に思う', name:'不思議に思う', eyebrow:'I wonder ...',
+  lead:'わからないところを見つけて、問い返す。',
+  points:[
+    '共感の表明や相づちは、必要以上に頻回にしなくてよい。わかりにくいところが見えたら、そこを問い返す。',
+    '的を射た質問は、わかろうとしていること、そしてここまではわかったことを、同時に伝える。',
+    '判断や評価を一般的に語るときは、その根拠を尋ねる。事実だけを語るときは、それについての感情を問う。話を具体的で、感情を伴うものにしていく。',
+    '話に自己撞着があるときは、「どういうことなのか」と不思議がる。明確化や直面化の出発点は、治療者が不思議に思うこと。',
+    '土居健郎の指摘のとおり、本当にわかるには、まず何がわからないかが見えてくる必要がある。',
+    '仮説は、できれば患者自身に出してもらう。出せないときに、治療者が仮説を示して患者の見解や感情を問うのが解釈で、だいたい質問の形をとる。'
+  ],
+  sets:[
+    { id:'wonder-1', title:'どの問い返しを向けるか', mode:'chips', q:'この発言に、まず向ける問い返しは。',
+      labels:['根拠を尋ねる','感情を問う','不思議がる'],
+      intro:'発言の形で、問い返しの向け方が変わります。',
+      items:[
+        {who:'patient',lead:'私なんて、どうせ誰にも好かれてないんです。',ans:'根拠を尋ねる',explain:'一般的な判断。「そう思うようになったのは、どんなことがあったのかな」のように、具体的な場面へ降りていく。'},
+        {who:'patient',lead:'先週、友達とケンカしました。それから連絡はとっていません。',ans:'感情を問う',explain:'事実だけが語られている。「そのとき、どんな気持ちだったのかな」と感情を尋ねる。'},
+        {who:'patient',lead:'学校なんてどうでもいいんです。でも、行けない自分は許せない。',ans:'不思議がる',explain:'自己撞着がある。責めずに「どういうことなんだろうね」と不思議がる。'},
+        {who:'patient',lead:'親はうるさいだけです。',ans:'根拠を尋ねる',explain:'評価が一般的に語られている。「うるさい、というのは、どんなときに？」と具体化する。'},
+        {who:'patient',lead:'テストは8点でした。',ans:'感情を問う',explain:'事実だけ。点数への本人の感情はまだ語られていない。'},
+        {who:'patient',lead:'早くよくなりたいです。でも、薬は飲みたくない。',ans:'不思議がる',explain:'二つの気持ちが並んでいる。矛盾と決めつけず、「どんな気持ちが同居しているのだろう」と一緒に知ろうとする。'}
+      ]
+    },
+    { id:'wonder-2', title:'不思議がり方を選ぶ', mode:'choices', q:'どう応えますか。',
+      intro:'外から指摘するのではなく、患者の内省する力に身を寄せて問う場面です。',
+      items:[
+        {who:'patient',lead:'学校なんてどうでもいいんです。でも、行けない自分は許せない。',options:[
+          {t:'どうでもいいのに許せない、というのは不思議だね。どうなっているのだろうね。',ok:true,tag:'不思議がる',note:'患者の観察する自分に身を寄せ、一緒に不思議がっている。'},
+          {t:'どうでもいいなら、許せないのは矛盾しているよ。',ok:false,tag:'断罪',note:'外から矛盾を突きつけている。患者は責められたと感じやすい。'},
+          {t:'どうでもいいなら、気にしなければいいんじゃない？',ok:false,tag:'論破・助言',note:'答えを治療者が先に出している。'},
+          {t:'それは、行きたい気持ちの裏返しだね。',ok:false,tag:'解釈（断定）',note:'仮説を患者に出してもらう前に、結論を渡している。'}
+        ]},
+        {who:'patient',lead:'ゲームをしている間だけ、頭の中が静かになるんです。',options:[
+          {t:'ふだんは、頭の中がにぎやかなのかな。どう思う？',ok:true,tag:'解釈（質問形）',note:'仮説を質問の形で示し、患者の見解を問うている。'},
+          {t:'それは現実逃避ですね。',ok:false,tag:'批判・断定',note:'評価で締めてしまい、続きが語られない。'},
+          {t:'ゲームの時間を決めましょう。',ok:false,tag:'助言',note:'静かになる意味を聴く前に、対策へ進んでいる。'},
+          {t:'それは依存の傾向ですね。',ok:false,tag:'分類',note:'ラベルで閉じている。'}
+        ]},
+        {who:'patient',lead:'テストは8点でした。',options:[
+          {t:'8点だったんですね。そのとき、どんな気持ちだったのかな。',ok:true,tag:'感情を問う',note:'事実のあとに、本人の感情を尋ねている。'},
+          {t:'8点か。勉強が足りなかったね。',ok:false,tag:'評価',note:'原因を治療者が決めている。'},
+          {t:'それは悲しいね。',ok:false,tag:'感情の先取り',note:'本人が語る前に、治療者が感情を決めている。まず本人に尋ねる。'},
+          {t:'次は頑張ろうね。',ok:false,tag:'励まし',note:'今回のことが聴かれないまま、次の話に進んでいる。'}
+        ]}
+      ]
+    }
+  ]
+},
+{
+  id:'work', nav:'介入', name:'介入と患者の仕事', eyebrow:'患者に仕事をしてもらう',
+  lead:'介入のあと、患者の連想が広がったかどうかで測る。',
+  points:[
+    '主な介入は、共感の表明、達成の評価、明確化、直面化、解釈。自分の介入がどれにあたるかを考える。',
+    'どれにもあたらないときは、その介入の意味と、なぜそう言ったのかを検討する。そこから逆転移に気づくこともある。',
+    '介入のあとで患者の連想が豊かになれば適切、貧しくなれば不適切。意味深い沈黙のこともある。',
+    '良い介入は、面接のなかでの患者の仕事を少し増やす。患者に代わって仕事をして、患者の仕事を減らすのではない。肩代わりは、患者を信頼しないことになる。',
+    '不思議がるときは、断罪せず、患者のなかにある観察自我に身を寄せる。「不思議だね。どうなっているのだろうね？」。質問が自問のように体験されれば、それは患者自身の探究になる。',
+    '例外として、障害や病理が重いときは、治療者が一時的に仕事を担うこともある。どこまでできて、どこからできないかを見きわめる。'
+  ],
+  extra:{ title:'介入のあとで、3つ自問する', items:[
+    '今の一言は、5つの介入のどれにあたるか。',
+    '患者の連想は広がったか、細くなったか。',
+    '患者の仕事を、自分が肩代わりしていないか。'
+  ]},
+  sets:[
+    { id:'work-1', title:'介入の型を見分ける', mode:'chips', q:'この治療者の発言は、どれにあたりますか。',
+      labels:['共感の表明','達成の評価','明確化','直面化','解釈','どれでもない'],
+      intro:'どれにもあたらない発言は、なぜそう言いたくなったのかを点検する対象です。',
+      items:[
+        {who:'therapist',ctx:'母が入院してから、家の中が静かになって。',lead:'それは、たいへんでしたね。',ans:'共感の表明',explain:'患者自身が言っても自然な言葉で、気持ちを受け取っている。'},
+        {who:'therapist',ctx:'ちょっと、しんどいです。',lead:'その「ちょっと」は、どれくらいのしんどさなのかな。',ans:'明確化',explain:'わかりにくいところを問い返し、具体的にしてもらっている。'},
+        {who:'therapist',ctx:'今週は3日行けました。',lead:'3日続けて行けたんですね。よかったですね。',ans:'達成の評価',explain:'できたことを認め、喜びに共感している。'},
+        {who:'therapist',ctx:'学校には行きたくないです。毎朝、制服は着てるんですけど。',lead:'行きたくないと言いながら、毎朝制服は着ているんだね。どういうことだろう。',ans:'直面化',explain:'語られたことの食い違いに、不思議がりながら目を向けてもらっている。断罪にならない形。'},
+        {who:'therapist',ctx:'親には言えないんです。',lead:'心配をかけたくない、という気持ちがあるのかな。どう思う？',ans:'解釈',explain:'仮説を質問の形で示し、患者の見解を問うている。'},
+        {who:'therapist',ctx:'最近、眠れなくて…。',lead:'大丈夫、絶対によくなるから、私に任せて。',ans:'どれでもない',explain:'安請け合いと肩代わり。なぜそう言いたくなったのか、自分の側の動き（逆転移の可能性）を点検する。'},
+        {who:'therapist',ctx:'朝は起きられなくて…。',lead:'規則正しく生活しないと、だめだよ。',ans:'どれでもない',explain:'価値観の押しつけにあたる。患者の仕事を減らし、連想も細くなりやすい。'}
+      ]
+    }
+  ]
+}
+];
+
+/* ---------- simulation ---------- */
+var SIM={
+  intro:'高校1年生のAさん（架空の症例）。数か月前から朝になると腹痛を訴え、学校を休みがちです。初診から数回目の面接で、あなたは治療者です。各場面で一言を選ぶと、Aさんの反応と「連想の広がり」が示されます。',
+  turns:[
+    {patient:'…最近、朝になるとお腹が痛くて。',opts:[
+      {t:'お腹が痛くなるんですね。もう少し聞かせてください。',tag:'促し（傾聴）',s:2,reply:'…うん。朝、制服を着るあたりから痛くなって。夜は平気なんです。だから、自分でも変だなって思ってて。',note:'判断を足さずに受け取り、話の続きを促した。Aさんが自分で話を具体的にしている。'},
+      {t:'朝がつらいんですね。',tag:'共感の表明',s:1,reply:'…はい。つらいです。朝が来るのが、いやで。',note:'気持ちを言葉にして受け取った。連想は少し広がったが、まだ短い。'},
+      {t:'学校へのストレスで、お腹に症状が出ているんですね。',tag:'解釈（断定）',s:-1,reply:'…そう、ですかね。',note:'治療者が先に説明を完成させたため、Aさんが考える余地が残らなかった。'},
+      {t:'朝ごはんをしっかり食べると、よくなるかもしれないよ。',tag:'助言',s:-1,reply:'はあ…食べてはいます。',note:'問題を治療者が引き取って解決しようとした。話が閉じている。'}
+    ]},
+    {patient:'学校は…別にどうでもいいんです。でも、行けない自分がいやで。',opts:[
+      {t:'どうでもいいのに、行けない自分はいやになる…。不思議だね。どうなっているのだろうね。',tag:'不思議がる',s:2,reply:'…どうでもいいって、言いたいだけなのかも。本当は、みんなと同じにできないのが、悔しいのかもしれない。',note:'矛盾を責めず、Aさんの内省に身を寄せて一緒に不思議がった。Aさん自身が仮説を出している。'},
+      {t:'行けない自分が、いやなんですね。',tag:'共感の表明',s:1,reply:'はい…なんでみんなみたいにできないんだろうって、毎日思います。',note:'気持ちを受け取り、感情を伴う話が出てきた。'},
+      {t:'どうでもいいなら、いやになるはずがないよね。',tag:'直面化（断罪）',s:-2,reply:'…そう言われても。',note:'矛盾を外から突きつけた。観察する自分に身を寄せていないため、Aさんは閉じてしまった。'},
+      {t:'かわいそうに。ひとりで抱えてきたんだね。',tag:'同情',s:-1,reply:'…ありがとうございます。',note:'手を差し伸べる言い方で、Aさんの探究は始まらなかった。'}
+    ]},
+    {patient:'先週は、3日だけ学校に行けました。あと2日は行けなかったけど。',opts:[
+      {t:'3日行けたんですね。それができて、よかったですね。',tag:'達成の評価',s:2,reply:'…はい。2日目は友達が声をかけてくれて。ちょっとだけ、うれしかったです。',note:'できたことを認め、喜びに共感した。うれしかった場面が語られた。'},
+      {t:'3日行けたとき、どんな気持ちでしたか。',tag:'感情を問う',s:2,reply:'ほっとしました。ちょっと誇らしかったかも。…でも、休んだ2日のほうが頭に残ってて。',note:'事実に伴う感情を問い、具体的な話が広がった。'},
+      {t:'その調子なら、来週は毎日行けるね。',tag:'安請け合い',s:-1,reply:'…だといいですけど。',note:'まだできていないことを保証した。期待に応えられるかという不安が生まれやすい。'},
+      {t:'でも、2日は休んでしまったんですね。',tag:'達成の割り引き',s:-2,reply:'…やっぱり、だめですよね。',note:'達成を割り引いた。Aさんの自己批判が強まった。'}
+    ]},
+    {patient:'親には、言ってないです。…言えないっていうか。',opts:[
+      {t:'言えない、というのは、どんな感じなのか、もう少し教えてもらえますか。',tag:'明確化',s:2,reply:'喉のところで止まる感じ。…言ったら、お母さんが泣くかもって思って。',note:'わかりにくいところを問い返し、具体的な体験が出てきた。'},
+      {t:'心配をかけたくない、という気持ちがあるのかな。どう思う？',tag:'解釈（質問形）',s:2,reply:'…あるかも。お母さん、最近疲れてるから。でも、言わないとわかってもらえないとも思ってて。',note:'仮説を質問の形で示し、Aさんの見解を引き出した。新しい迷いも語られた。'},
+      {t:'ちゃんと話したほうがいいよ。',tag:'助言',s:-1,reply:'…はい。',note:'Aさんの課題を、治療者が先に決めてしまった。'},
+      {t:'それは、思春期によくある親子関係ですね。',tag:'分類',s:-1,reply:'…そうなんですね。',note:'一般化して終わらせた。この人の体験への関心が伝わりにくい。'}
+    ]},
+    {patient:'（うつむいて、しばらく黙っている）',opts:[
+      {t:'（そのまま、静かに待つ）',tag:'沈黙を待つ',s:2,reply:'……この前、おばあちゃんが入院してから、家の空気が変わって。それも関係あるのかなって、ちょっと思ってました。',note:'意味のある沈黙は、Aさんの仕事の時間。待つことで、自分から話が出てきた。'},
+      {t:'ところで、睡眠はとれていますか。',tag:'話題転換',s:-1,reply:'…はい、まあ。',note:'必要な確認でも、沈黙を破るためにすると連想が途切れる。タイミングの問題。'},
+      {t:'無理に話さなくて大丈夫だよ。',tag:'励まし',s:0,reply:'…はい。',note:'やさしい言葉だが、沈黙の意味には触れていない。話は動かなかった。'},
+      {t:'うん、うん。わかる、わかりますよ。',tag:'過剰な相づち',s:-1,reply:'…そう、ですか。',note:'わかったと伝えすぎると、Aさんが語る余地が減る。相づちは必要な分だけでよい。'}
+    ]}
+  ]
+};
+
+/* ---------- quiz runner ---------- */
+function leadBlock(item){
+  var isT=item.who==='therapist';
+  var wrap=h('div',{class:'say '+(isT?'therapist':'patient')});
+  if(item.ctx) wrap.append(h('div',{class:'ctx',text:'患者：'+item.ctx}));
+  wrap.append(h('div',{class:'who',text:isT?'治療者':'患者'}), h('div',{class:'line',text:item.lead}));
+  return wrap;
+}
+
+function runQuiz(set, mount, onDone){
+  var idx=0, score=0, timer=null;
+  function clearTimer(){ if(timer){ clearTimeout(timer); timer=null; } }
+
+  function showItem(){
+    clearTimer();
+    mount.replaceChildren();
+    var total=set.items.length;
+    var item=set.items[idx];
+    var chips=set.mode==='chips';
+    var options=item.options||chip(set.labels,item.ans);
+    var list=chips?options:shuffle(options);
+
+    var fill=h('i'); fill.style.width=(idx/total*100)+'%';
+    var progressBar=h('div',{class:'bar'},fill);
+    var head=h('div',{class:'qhead'},h('span',{text:set.title}),h('span',{text:'問 '+(idx+1)+' / '+total}));
+    var lead=leadBlock(item);
+    var q=h('p',{class:'q',text:set.q});
+    var opts=h('div',{class:chips?'opts chips':'opts'});
+    var feedback=h('div',{class:'feedback',hidden:true});
+    var next=h('button',{type:'button',class:'btn',hidden:true,text:idx<total-1?'次へ':'結果を見る',onclick:function(){
+      idx++; if(idx<total) showItem(); else showResult();
+    }});
+    var pairs=[];
+    var answered=false;
+
+    list.forEach(function(o){
+      var b=h('button',{type:'button',class:'opt'},h('span',{text:o.t}));
+      pairs.push([b,o]);
+      b.addEventListener('click',function(){
+        if(answered) return;
+        answered=true;
+        if(o.ok) score++;
+        pairs.forEach(function(p){
+          var btn=p[0], op=p[1];
+          btn.disabled=true;
+          if(op.ok) btn.classList.add('is-ok');
+          if(btn===b){ btn.classList.add('is-chosen'); if(!op.ok) btn.classList.add('is-miss'); }
+          if(!chips && op.note){
+            btn.append(h('div',{class:'note'},h('b',{text:(op.ok?'◎ ':'△ ')+(op.tag||'')+'　'}),op.note));
+          }
+        });
+        if(chips){
+          var right=options.filter(function(x){return x.ok;})[0];
+          feedback.hidden=false;
+          feedback.append(h('b',{text:o.ok?'そのとおりです。':'答えは「'+right.t+'」です。'}),item.explain);
+        }
+        next.hidden=false;
+        next.focus({preventScroll:true});
+      });
+      opts.append(b);
+    });
+
+    mount.append(progressBar,head,lead);
+
+    if(item.pause){
+      var pf=h('i');
+      var track=h('div',{class:'pause'},pf);
+      var label=h('span',{class:'small',text:'まず、聴く。'});
+      var skip=h('button',{type:'button',class:'link',text:'待たずに選ぶ'});
+      var pbox=h('div',{class:'stack',style:'gap:6px'},track,h('div',{class:'between'},label,skip));
+      opts.classList.add('locked');
+      var unlock=function(){ clearTimer(); opts.classList.remove('locked'); pbox.hidden=true; };
+      skip.addEventListener('click',unlock);
+      mount.append(pbox);
+      void pf.offsetWidth;
+      pf.style.transitionDuration=item.pause+'s';
+      pf.style.width='100%';
+      timer=setTimeout(unlock,item.pause*1000);
+    }
+
+    mount.append(q,opts,feedback,next);
+  }
+
+  function showResult(){
+    clearTimer();
+    var total=set.items.length;
+    var msg=score===total?'全問、判断を足さずに受け取れています。'
+      :score/total>=0.7?'おおむね見分けられています。外れた問いの説明を、もう一度読んでみてください。'
+      :'まだ迷いやすいところです。選択肢の説明を読みながら、もう一度試すと感覚がつかめます。';
+    mount.replaceChildren(
+      h('div',{class:'stack'},
+        h('p',{class:'small',text:set.title+'　結果'}),
+        h('div',{class:'score',text:score+' / '+total}),
+        h('p',{text:msg}),
+        h('p',{class:'small',text:'正解の数よりも、なぜそう響くのかを自分の言葉で言えることが大切です。'}),
+        h('div',{class:'row'},
+          h('button',{type:'button',class:'btn',text:'もう一度',onclick:function(){ idx=0; score=0; showItem(); }})
+        )
+      )
+    );
+    onDone(score,total);
+  }
+
+  showItem();
+}
+
+/* ---------- illustrations (治療者=ティール / 患者=黄土色で固定) ---------- */
+function fig(x,y,s,c){
+  return '<g transform="translate('+x+' '+y+') scale('+s+')"><path class="'+c+'" d="M-22 0C-22 -15 -12 -19 0 -19C12 -19 22 -15 22 0Z"/><circle class="'+c+'" cx="0" cy="-31" r="12"/></g>';
+}
+function fl(x1,x2,y){ return '<line class="fl" x1="'+x1+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'"/>'; }
+function plant(x,y){
+  return '<g transform="translate('+x+' '+y+')"><path class="ln" d="M-10 0L-7 -14H7L10 0Z"/><path class="lf" d="M0 -14C-14 -24 -12 -40 0 -46C12 -40 14 -24 0 -14Z"/></g>';
+}
+var ILL={
+  hero:{vb:'0 0 360 150',label:'向かい合って座る治療者と患者。二人のあいだに静かな間がある。',
+    body:fl(24,336,132)+plant(334,132)+fig(106,132,1.7,'ac')+fig(254,132,1.7,'pt')+
+      '<circle class="dot" cx="222" cy="64" r="2.5"/><circle class="dot" cx="205" cy="56" r="3.5"/><circle class="dot" cx="186" cy="50" r="4.5"/>'},
+  room:{vb:'0 0 360 120',label:'面接室。窓と時計、向かい合う治療者と患者。',
+    body:fl(20,340,104)+
+      '<rect class="bub" x="236" y="18" width="64" height="52" rx="3"/><line class="ln" x1="268" y1="18" x2="268" y2="70"/><line class="ln" x1="236" y1="44" x2="300" y2="44"/>'+
+      '<circle class="bub" cx="64" cy="40" r="15"/><line class="ln" x1="64" y1="40" x2="64" y2="30"/><line class="ln" x1="64" y1="40" x2="71" y2="44"/>'+
+      plant(334,104)+fig(120,104,1.2,'ac')+fig(200,104,1.2,'pt')},
+  'i-listen':{vb:'0 0 120 90',label:'耳を傾ける治療者',
+    body:fl(10,110,80)+fig(38,80,1,'ac')+
+      '<path class="arc" d="M66 44Q61 52 66 60"/><path class="arc" opacity=".65" d="M78 38Q70 52 78 66"/><path class="arc" opacity=".35" d="M90 32Q79 52 90 72"/>'},
+  'i-empathy':{vb:'0 0 120 90',label:'同じ高さで並ぶ治療者と患者',
+    body:fl(10,110,80)+fig(38,80,1,'ac')+fig(84,80,1,'pt')+'<path class="dash" d="M44 34Q61 16 78 34"/>'},
+  'i-wonder':{vb:'0 0 120 90',label:'首をかしげて不思議に思う治療者',
+    body:fl(10,110,80)+fig(32,80,1,'ac')+
+      '<circle class="bub" cx="52" cy="54" r="4"/><circle class="bub" cx="46" cy="62" r="2.5"/><ellipse class="bub" cx="84" cy="32" rx="28" ry="20"/>'+
+      '<text class="tq" x="84" y="42" text-anchor="middle">?</text>'},
+  'i-work':{vb:'0 0 120 90',label:'灯りを手に、患者の歩みを照らす治療者',
+    body:fl(10,110,80)+fig(26,80,.95,'ac')+'<circle class="glow" cx="62" cy="44" r="18"/>'+
+      '<line class="ln" x1="42" y1="62" x2="56" y2="50"/><circle class="lamp" cx="62" cy="44" r="6"/>'+fig(98,80,.95,'pt')},
+  'i-sim':{vb:'0 0 120 90',label:'面接の時間を示す時計',
+    body:'<circle class="bub" cx="60" cy="45" r="30"/><line class="ln" x1="60" y1="45" x2="60" y2="26"/><line class="ln" x1="60" y1="45" x2="74" y2="52"/>'+
+      '<line class="ln" x1="60" y1="19" x2="60" y2="23"/><line class="ln" x1="60" y1="67" x2="60" y2="71"/><line class="ln" x1="34" y1="45" x2="38" y2="45"/><line class="ln" x1="82" y1="45" x2="86" y2="45"/>'},
+  sympathy:{vb:'0 0 360 184',label:'左は、高い位置から患者へ手を差し伸べる同情。右は、同じ高さで並ぶ共感。',
+    body:'<line class="fl" x1="180" y1="14" x2="180" y2="150" stroke-dasharray="2 6"/>'+fl(30,150,152)+fl(210,330,152)+
+      '<text class="tb" x="90" y="24" text-anchor="middle">同情</text><text class="tb" x="270" y="24" text-anchor="middle">共感</text>'+
+      '<line class="ln" x1="58" y1="96" x2="122" y2="96"/>'+fig(90,96,.9,'ac')+fig(90,152,.9,'pt')+
+      '<path class="arc" d="M114 78Q128 96 112 112"/><path class="arc" d="M106 106L112 113L118 107"/>'+
+      fig(240,152,.9,'pt')+fig(300,152,.9,'ac')+'<path class="dash" d="M254 120Q270 108 286 120"/>'+
+      '<text class="tx" x="90" y="174" text-anchor="middle">上から手を差し伸べる</text><text class="tx" x="270" y="174" text-anchor="middle">同じ高さで、患者の言葉で</text>'},
+  wonderfig:{vb:'0 0 360 150',label:'治療者が不思議がって問いかけ、患者自身が自分の考えを思いつく様子。',
+    body:fl(20,340,132)+fig(90,132,1.6,'ac')+fig(270,132,1.6,'pt')+
+      '<circle class="bub" cx="122" cy="60" r="4.5"/><circle class="bub" cx="114" cy="68" r="3"/><ellipse class="bub" cx="140" cy="34" rx="34" ry="22"/>'+
+      '<text class="tq" x="140" y="45" text-anchor="middle">?</text>'+
+      '<circle class="bub" cx="242" cy="60" r="4.5"/><circle class="bub" cx="248" cy="68" r="3"/><ellipse class="bub" cx="230" cy="34" rx="34" ry="22"/>'+
+      '<circle class="glow" cx="230" cy="30" r="13"/><circle class="lamp" cx="230" cy="30" r="6"/><line class="ln" x1="226" y1="41" x2="234" y2="41"/>'+
+      '<path class="dash" d="M122 92Q180 74 240 92"/>'}
+};
+function illu(name,cls){
+  var d=ILL[name];
+  var box=document.createElement('div');
+  box.className='ill '+(cls||'');
+  box.innerHTML='<svg viewBox="'+d.vb+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+d.label+'">'+d.body+'</svg>';
+  return box;
+}
+var FIG={empathy:['sympathy','同情と共感の違い'],wonder:['wonderfig','患者自身にも不思議がってもらう']};
+
+/* ---------- views ---------- */
+var main=document.getElementById('main');
+var tabsEl=document.getElementById('tabs');
+var TABS=[
+  {id:'home',label:'はじめに'},
+  {id:'listen',label:'傾聴'},
+  {id:'empathy',label:'共感'},
+  {id:'wonder',label:'不思議に思う'},
+  {id:'work',label:'介入'},
+  {id:'sim',label:'面接'}
+];
+var current='home';
+
+function moduleDone(m){
+  return m.sets.every(function(s){ return progress[s.id]&&progress[s.id].done; });
+}
+function isTabDone(id){
+  if(id==='home') return false;
+  if(id==='sim') return !!(progress.sim&&progress.sim.done);
+  var m=MODULES.filter(function(x){return x.id===id;})[0];
+  return m?moduleDone(m):false;
+}
+function paintTabs(){
+  tabsEl.replaceChildren();
+  TABS.forEach(function(t){
+    var b=h('button',{type:'button',class:'tab'+(isTabDone(t.id)?' done':''),text:t.label,onclick:function(){ go(t.id); }});
+    if(t.id===current) b.setAttribute('aria-current','page');
+    tabsEl.append(b);
+  });
+}
+function go(id){
+  current=id;
+  paintTabs();
+  main.replaceChildren(id==='home'?viewHome():id==='sim'?viewSim():viewModule(MODULES.filter(function(x){return x.id===id;})[0]));
+  window.scrollTo(0,0);
+}
+
+function viewHome(){
+  var cards=MODULES.map(function(m){
+    var done=m.sets.filter(function(s){return progress[s.id]&&progress[s.id].done;}).length;
+    return h('div',{class:'card stack',style:'gap:8px'},
+      h('div',{class:'between'},h('h3',{text:m.name}),h('span',{class:'chip'+(done===m.sets.length?' done':''),text:done+' / '+m.sets.length+' セット'})),
+      h('p',{class:'small',text:m.lead}),
+      h('div',{class:'row'},h('button',{type:'button',class:'btn ghost',text:'はじめる',onclick:function(){ go(m.id); }}))
+    );
+  });
+  var simDone=progress.sim&&progress.sim.done;
+  cards.push(h('div',{class:'card stack',style:'gap:8px'},
+    h('div',{class:'between'},h('h3',{text:'面接シミュレーション'}),h('span',{class:'chip'+(simDone?' done':''),text:simDone?'完了':'未着手'})),
+    h('p',{class:'small',text:'5つの場面で一言を選び、患者の連想がどう動くかを見る。'}),
+    h('div',{class:'row'},h('button',{type:'button',class:'btn ghost',text:'はじめる',onclick:function(){ go('sim'); }}))
+  ));
+  return h('section',{class:'stack'},
+    h('div',{class:'card'},
+      illu('hero','hero-ill'),
+      h('h2',{text:'4つの柱を、場面で確かめる'}),
+      h('p',{class:'lede',text:'「傾聴と共感メモ」の4つの柱を、短い場面に応えながら体験する教材です。'}),
+      h('ol',{class:'how'},
+        h('li',{text:'章の要点を読む'}),
+        h('li',{text:'場面ごとに応答を選び、解説を読む'}),
+        h('li',{text:'最後に面接シミュレーションで通して試す'})
+      )
+    ),
+    h('div',{class:'grid'},cards),
+    h('p',{class:'small',text:'台詞と症例は学習用に作った架空のものです。正解は一つの型ではなく、判断を足さずに受け取れているか、患者の仕事が増えるか、という視点で示しています。進み具合は、この端末のブラウザにだけ保存されます。'})
+  );
+}
+
+function setCard(set){
+  var status=h('span',{class:'chip'});
+  var body=h('div',{class:'stack',style:'margin-top:12px'});
+  function paint(){
+    var p=progress[set.id];
+    status.textContent=p&&p.done?('完了　最高 '+p.best+'/'+p.total):'未着手';
+    status.className='chip'+(p&&p.done?' done':'');
+  }
+  var startBtn=h('button',{type:'button',class:'btn',text:'はじめる',onclick:function(){
+    startBtn.remove();
+    runQuiz(set,body,function(score,total){
+      var p=progress[set.id]||{};
+      progress[set.id]={done:true,best:Math.max(p.best||0,score),total:total};
+      save(); paint(); paintTabs();
+    });
+  }});
+  body.append(startBtn);
+  paint();
+  return h('div',{class:'card'},
+    h('div',{class:'between'},h('h3',{text:set.title}),status),
+    h('p',{class:'small',text:set.intro}),
+    body
+  );
+}
+
+function viewModule(m){
+  var page=h('section',{class:'stack'});
+  page.append(h('div',{class:'mod-head'},h('div',{},h('p',{class:'eyebrow',text:m.eyebrow}),h('h2',{text:m.name}),h('p',{class:'lede',text:m.lead})),illu('i-'+m.id,'icon')));
+  page.append(h('div',{class:'card'},h('h3',{text:'要点'}),h('ul',{class:'points'},m.points.map(function(p){return h('li',{text:p});}))));
+  if(FIG[m.id]){
+    page.append(h('div',{class:'card'},h('h3',{text:FIG[m.id][1]}),illu(FIG[m.id][0],'wide')));
+  }
+  if(m.extra){
+    page.append(h('div',{class:'card'},h('h3',{text:m.extra.title}),h('ul',{class:'points'},m.extra.items.map(function(p){return h('li',{text:p});}))));
+  }
+  m.sets.forEach(function(s){ page.append(setCard(s)); });
+  if(m.id==='work'){
+    page.append(h('div',{class:'row'},h('button',{type:'button',class:'btn',text:'面接シミュレーションへ',onclick:function(){ go('sim'); }})));
+  }
+  return page;
+}
+
+function viewSim(){
+  var page=h('section',{class:'stack'});
+  page.append(
+    h('div',{class:'mod-head'},h('div',{},h('p',{class:'eyebrow',text:'通して試す'}),h('h2',{text:'面接シミュレーション'})),illu('i-sim','icon')),
+    h('div',{class:'card'},
+      illu('room','room-ill'),
+      h('p',{text:SIM.intro}),
+      h('p',{class:'small',style:'margin-top:8px',text:'目安は、介入のあとで患者の連想が広がったかどうか。メーターが長いほど、話が具体的で豊かになっています。'})
+    )
+  );
+  var records=[];
+  var stage=h('div',{class:'stack'});
+  page.append(stage);
+
+  function showTurn(i){
+    var turn=SIM.turns[i];
+    var total=SIM.turns.length;
+    var card=h('div',{class:'card stack'});
+    var opts=h('div',{class:'opts'});
+    var after=h('div',{class:'stack'});
+    var answered=false;
+    card.append(
+      h('div',{class:'qhead'},h('span',{text:'場面'}),h('span',{text:(i+1)+' / '+total})),
+      leadBlock({who:'patient',lead:turn.patient}),
+      h('p',{class:'q',text:'治療者として、どう応えますか。'}),
+      opts, after
+    );
+    var btns=[];
+    shuffle(turn.opts).forEach(function(o){
+      var b=h('button',{type:'button',class:'opt',text:o.t});
+      btns.push(b);
+      b.addEventListener('click',function(){
+        if(answered) return;
+        answered=true;
+        btns.forEach(function(x){ x.disabled=true; });
+        b.classList.add('is-chosen');
+        b.classList.add(o.s>=1?'is-ok':o.s<=-1?'is-miss':'is-chosen');
+        records.push({patient:turn.patient,t:o.t,tag:o.tag,lv:o.s+3});
+        var others=turn.opts.filter(function(x){return x!==o;});
+        after.append(
+          h('div',{class:'row'},h('span',{class:'tag',text:o.tag})),
+          h('div',{class:'reply'},
+            leadBlock({who:'patient',lead:o.reply}),
+            h('div',{class:'row'},h('span',{class:'small',text:'連想の広がり'}),meter(o.s+3))
+          ),
+          h('p',{class:'note',text:o.note}),
+          h('details',{class:'more'},
+            h('summary',{text:'ほかの選択肢と、その後の反応'}),
+            h('ul',{},others.map(function(x){
+              return h('li',{},
+                h('div',{class:'row'},h('span',{class:'tag',text:x.tag}),meter(x.s+3)),
+                h('p',{style:'margin-top:6px',text:'治療者：'+x.t}),
+                h('p',{class:'small',text:'患者：'+x.reply}),
+                h('p',{class:'note',text:x.note})
+              );
+            }))
+          ),
+          h('div',{class:'row'},h('button',{type:'button',class:'btn',text:i<total-1?'次の場面へ':'ふりかえる',onclick:function(){
+            if(i<total-1) showTurn(i+1); else showSummary();
+          }}))
+        );
+      });
+      opts.append(b);
+    });
+    stage.append(card);
+    if(i>0) card.scrollIntoView({block:'start'});
+  }
+
+  function showSummary(){
+    var sum=records.reduce(function(a,r){return a+r.lv;},0);
+    var avg=sum/records.length;
+    var msg=avg>=4.2?'どの場面でも、患者の仕事が増える方向に動けました。'
+      :avg>=3.4?'広がった場面と、止まった場面がありました。止まった場面の介入を、5つの型で言い直してみてください。'
+      :'患者の連想が細くなる場面が続きました。治療者が先に答えを出していないか、点検してみてください。';
+    var card=h('div',{class:'card stack'},
+      h('p',{class:'small',text:'ふりかえり'}),
+      h('div',{class:'score',text:avg.toFixed(1)+' / 5'}),
+      h('p',{text:msg}),
+      h('ul',{class:'timeline'},records.map(function(r,k){
+        return h('li',{},
+          h('span',{class:'tl-t',text:'場面'+(k+1)+'　'+r.tag}),
+          meter(r.lv)
+        );
+      })),
+      h('p',{class:'small',text:'平均は、連想の広がりを5段階で見たものです。診断や評価の指標ではなく、振り返りのための目安です。'}),
+      h('div',{class:'row'},
+        h('button',{type:'button',class:'btn',text:'もう一度',onclick:function(){ go('sim'); }}),
+        h('button',{type:'button',class:'btn ghost',text:'はじめに戻る',onclick:function(){ go('home'); }})
+      )
+    );
+    stage.append(card);
+    progress.sim={done:true,avg:avg};
+    save(); paintTabs();
+    card.scrollIntoView({block:'start'});
+  }
+
+  showTurn(0);
+  return page;
+}
+
+go('home');
+})();
+</script>
+
+</body></html>
